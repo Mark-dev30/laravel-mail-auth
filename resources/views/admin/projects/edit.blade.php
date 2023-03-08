@@ -53,9 +53,9 @@
                     @endforeach
                 </div>
                 <div class="mb-3">
-                    <label  class="form-label">Enter Content</label>
+                    <label  class="form-label">Enter Description</label>
                     {{-- IN QUESTO CASO MOSTRA IL CONTENUTO CHE ABBIAMO INSERITO NEL CREATE --}}
-                    <textarea class="form-control" name="content"  cols="30" rows="10" >{{ old('content') ?? $project->description }}</textarea>
+                    <textarea class="form-control" name="description"  cols="30" rows="10" >{{ old('content') ?? $project->description }}</textarea>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Submit</button>

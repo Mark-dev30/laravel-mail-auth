@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
+use App\Models\Lead;
+use App\Mail\ConfirmProject;
 
 
 class ProjectController extends Controller
@@ -80,6 +83,18 @@ class ProjectController extends Controller
         if ($request->has('technologies')) {
             $newProject->technologies()->sync($request->technologies);
         }
+
+        $newLead = new Lead();
+
+        $newLead->title = $form['title'];
+        $newLead->slug = $form['slug'];
+        $newLead->description = $form['description'];
+
+
+        $newLead->save();
+
+        Mail::to('info@portfolio.com')->send(new ConfirmProject($newLead));
+
         //REINDIRIZZA ALLA PAGINA INDEX. LA FUNZIONE with PASSA ALLA PAGINA INDEX UN MESSAGGIO
         return redirect()->route('admin.projects.index')->with('message', 'PROJECT CREATED');
     }

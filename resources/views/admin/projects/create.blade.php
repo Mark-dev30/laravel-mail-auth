@@ -47,7 +47,7 @@
 
                 <div class="mb-3">
                     <label  class="form-label">Enter Description</label>
-                    <textarea class="form-control" name="content"  cols="30" rows="10"></textarea>
+                    <textarea class="form-control" name="description"  cols="30" rows="10"></textarea>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Submit</button>
