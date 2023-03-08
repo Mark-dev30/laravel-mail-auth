@@ -143,7 +143,6 @@ class ProjectController extends Controller
 
         //AGGIUNGE L'ATTRIBUTO "slug" AI DATI VALIDATI DELLA RICHIESTA, ASSEGNANDO IL VALORE GENERATO ALLO STEP PRECEDENTE.
         $form['slug'] = $slug;
-
         if ($request->hasFile('cover_image')) {
             Storage::delete($project->cover_image);
         }
