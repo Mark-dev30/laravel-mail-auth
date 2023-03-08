@@ -16,11 +16,15 @@
             </div>
             @endif
             {{-- REINDIRIZZA AL CONTROLLORE ProjectController AL METODO store. VIENE PASSATO LO SLUG DELL'ELEMENTO SELEZIONATO --}}
-            <form action="{{ route('admin.projects.store') }}" method="POST">
+            <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                   <label  class="form-label">Enter Title</label>
                   <input name="title" type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Enter Image</label>
+                    <input name="cover_image" type="file" class="form-control @error('cover_image') is-invalid @enderror">
                 </div>
                 <div class="mb-3">
                     <label  class="form-label">Types</label>

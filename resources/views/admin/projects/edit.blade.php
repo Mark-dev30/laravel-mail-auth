@@ -26,6 +26,12 @@
                   <input name="title" type="text" class="form-control" value="{{ old('title') ?? $project->title }}">
                 </div>
                 <div class="mb-3">
+                    <label  class="form-label">Current Image</label>
+                    <img class="w-25 d-block mb-4" src="{{ asset('storage/'.$project->cover_image)}}" alt="{{ $project->title }}">
+                    <label  class="form-label">Enter New Image</label>
+                    <input name="cover_image" type="file" class="form-control @error('cover_image') is-invalid @enderror">
+                </div>
+                <div class="mb-3">
                     <label  class="form-label">Enter Type</label>
                     <select class="form-controll" name="type_id" id="type_id">
                         @foreach ($types as $type)

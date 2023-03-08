@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,13 @@ class ProjectController extends Controller
 
 
         $newProject = new Project();
+
+        if ($request->hasFile('cover_image')) {
+            $path = Storage::disk('public')->put('project_images', $request->cover_image);
+
+            $form['cover_image'] = $path;
+        }
+
         //UN NUOVO OGGETTO "project" VIENE CREATO E POPOLATO CON I DATI DEL FORM UTILIZZANDO IL METODO "FILL()" PER ASSEGNARE TUTTI I VALORI PASSATI DALL'ARRAY "$FORM".
         $newProject->fill($form);
 
@@ -111,6 +119,7 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
+
         //INIZIALMENTE, VIENE VALIDATO IL FORM INVIATO DALL'UTENTE ATTRAVERSO LA CLASSE "UpdateProjectRequest" CHE CONTROLLA CHE I DATI SIANO CORRETTI E COERENTI CON LE REGOLE DI VALIDAZIONE DEFINITE.
         $form = $request->validated();
 
@@ -119,6 +128,14 @@ class ProjectController extends Controller
 
         //AGGIUNGE L'ATTRIBUTO "slug" AI DATI VALIDATI DELLA RICHIESTA, ASSEGNANDO IL VALORE GENERATO ALLO STEP PRECEDENTE.
         $form['slug'] = $slug;
+
+        if ($request->hasFile('cover_image')) {
+            Storage::delete($project->cover_image);
+        }
+
+        $path = Storage::disk('public')->put('project_images', $request->cover_image);
+
+        $form['cover_image'] = $path;
 
         //LA FUNZIONE UTILIZZA IL METODO "update" DELL'OGGETTO "project" PER AGGIORNARE IL PROGETTO CON I DATI VALIDATI E LO SLUG APPENA GENERATO. QUESTO METODO PRENDE COME ARGOMENTO UN ARRAY DI DATI E LI UTILIZZA PER AGGIORNARE L'ISTANZA DEL MODELLO.
         $project->update($form);

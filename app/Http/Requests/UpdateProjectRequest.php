@@ -28,7 +28,8 @@ class UpdateProjectRequest extends FormRequest
             'title' => ['required', Rule::unique('projects')->ignore($this->project), 'max:50'],
             'description' => ['nullable'],
             'type_id' => ['nullable', 'exists:types,id'],
-            'technologies' => ['exists:technologies,id']
+            'technologies' => ['exists:technologies,id'],
+            /* 'cover_image' => ['nullable', 'image'] */
         ];
     }
 
@@ -39,7 +40,8 @@ class UpdateProjectRequest extends FormRequest
             'title.required' => 'Title must be entered',
             'title.unique' => 'A project with this name already exists',
             'title.max' => 'The title cannot exceed :max characters',
-            'technologies.exists' => 'The selected technology is not valid'
+            'technologies.exists' => 'The selected technology is not valid',
+            'cover_image.image' => 'Please enter a valid format'
 
         ];
     }

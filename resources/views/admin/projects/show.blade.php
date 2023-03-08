@@ -5,6 +5,8 @@
         <div class="col-12">
             <h2 class="text-center">Project page</h2>
             <div class="content-project m-5">
+                <label><h5>Image:</h5></label>
+                <img class="w-25 d-block mb-4" src="{{ asset('storage/'.$project->cover_image )}}" alt="{{ $project->title }}">
                 <label><h5>Title:</h5></label>
                 {{-- MOSTRO IL TITOLO --}}
                 <p>{{$project->title}}</p>
